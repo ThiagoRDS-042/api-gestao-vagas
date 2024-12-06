@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,15 +37,19 @@ public class JobEntity {
   @Column(name = "company_id", nullable = false)
   private UUID companyId;
 
-  @Column(nullable = true)
+  @NotBlank()
+  @Column(nullable = false)
+  @Schema(example = "Vaga to the dev jr", requiredMode = RequiredMode.REQUIRED)
   private String description;
 
   @NotBlank()
   @Column(nullable = false)
+  @Schema(example = "GYMPass and health plan", requiredMode = RequiredMode.REQUIRED)
   private String level;
 
   @NotBlank()
   @Column(nullable = false)
+  @Schema(example = "JR", requiredMode = RequiredMode.REQUIRED)
   private String benefits;
 
   @CreationTimestamp

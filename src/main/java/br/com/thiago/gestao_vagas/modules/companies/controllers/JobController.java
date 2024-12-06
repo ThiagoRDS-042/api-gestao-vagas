@@ -7,6 +7,13 @@ import br.com.thiago.gestao_vagas.modules.companies.dto.CreateJobDTO;
 import br.com.thiago.gestao_vagas.modules.companies.entities.JobEntity;
 import br.com.thiago.gestao_vagas.modules.companies.useCases.CreateJobUseCase;
 import br.com.thiago.gestao_vagas.modules.companies.useCases.exceptions.CompanyDoesNotExistsException;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
@@ -21,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/companies")
+@Tag(name = "Job", description = "Info of the jobs")
 public class JobController {
 
   @Autowired
@@ -28,6 +36,15 @@ public class JobController {
 
   @PostMapping("/jobs")
   @PreAuthorize("hasRole('COMPANY')")
+  @Operation(summary = "Create of the jobs enables for the candidates", description = "Create of the jobs")
+  @ApiResponses({
+      @ApiResponse(responseCode = "200", content = {
+          @Content(schema = @Schema(implementation = JobEntity.class))
+      }),
+      @ApiResponse(responseCode = "404", description = "Company does not exists."),
+      @ApiResponse(responseCode = "500", description = "Internal server error.")
+  })
+  @SecurityRequirement(name = "jwt_auth")
   public ResponseEntity<Object> create(@Valid @RequestBody CreateJobDTO createJobDTO, HttpServletRequest request) {
 
     try {
