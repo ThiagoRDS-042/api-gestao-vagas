@@ -131,16 +131,13 @@ public class CandidateController {
   })
   @SecurityRequirement(name = "jwt_auth")
   public ResponseEntity<Object> applyJob(@PathVariable UUID jobId, HttpServletRequest request) {
-    System.out.println("------------------------foi");
     var candidateId = request.getAttribute("candidate_id");
 
     try {
       var result = this.applyJobCandidateUse.execute(UUID.fromString(candidateId.toString()), jobId);
 
       return ResponseEntity.ok().body(result);
-    } catch (CandidateDoesNotExists exception) {
-      return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
-    } catch (JobDoesNotExistsException exception) {
+    } catch (CandidateDoesNotExists | JobDoesNotExistsException exception) {
       return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
     } catch (Exception exception) {
       exception.printStackTrace();
