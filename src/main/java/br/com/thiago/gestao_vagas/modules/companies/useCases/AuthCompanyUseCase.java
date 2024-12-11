@@ -2,9 +2,8 @@ package br.com.thiago.gestao_vagas.modules.companies.useCases;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
-
-import javax.security.sasl.AuthenticationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,7 +27,7 @@ public class AuthCompanyUseCase {
   @Autowired
   private PasswordEncoder passwordEncoder;
 
-  public AuthCompanyResponseDTO execute(AuthCompanyDTO authCompanyDTO) throws AuthenticationException {
+  public AuthCompanyResponseDTO execute(AuthCompanyDTO authCompanyDTO) {
     var company = this.companyRepository.findByUsername(authCompanyDTO.getUsername()).orElseThrow(() -> {
       throw new InvalidCredentialsException();
     });
@@ -39,7 +38,8 @@ public class AuthCompanyUseCase {
       throw new InvalidCredentialsException();
     }
 
-    Instant expiresIn = Instant.now().plus(Duration.ofHours(2));
+    Instant expiresIn = Instant.now().plus(Duration.ofHours(2)).truncatedTo(ChronoUnit.SECONDS);
+    ;
 
     var token = this.jwtProvider.createTokenWithClains(company.getId().toString(), Arrays.asList("COMPANY"),
         expiresIn);
