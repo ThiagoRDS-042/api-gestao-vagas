@@ -13,7 +13,6 @@ public class TestUtils {
 
       return objectMapper.writeValueAsString(object);
     } catch (Exception e) {
-      System.out.println("foi aqui");
       throw new RuntimeException(e);
     }
 

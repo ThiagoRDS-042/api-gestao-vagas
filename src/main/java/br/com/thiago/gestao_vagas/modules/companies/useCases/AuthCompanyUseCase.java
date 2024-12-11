@@ -39,7 +39,6 @@ public class AuthCompanyUseCase {
     }
 
     Instant expiresIn = Instant.now().plus(Duration.ofHours(2)).truncatedTo(ChronoUnit.SECONDS);
-    ;
 
     var token = this.jwtProvider.createTokenWithClains(company.getId().toString(), Arrays.asList("COMPANY"),
         expiresIn);

@@ -45,7 +45,7 @@ public class ListAllJobsByFilterUseCaseTest {
 
     var jobs = this.listAllJobsByFilterUseCase.execute(filter);
 
-    assertEquals(jobs.size(), 1);
+    assertEquals(1, jobs.size());
     Assertions.assertThat(jobs).contains(job);
   }
 }
