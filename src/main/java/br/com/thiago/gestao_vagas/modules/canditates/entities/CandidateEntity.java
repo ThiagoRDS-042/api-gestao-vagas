@@ -1,4 +1,4 @@
-package br.com.thiago.gestao_vagas.modules.canditates;
+package br.com.thiago.gestao_vagas.modules.canditates.entities;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -16,10 +16,16 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity(name = "candidates")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class CandidateEntity {
 
   @Id
