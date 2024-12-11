@@ -2,6 +2,7 @@ package br.com.thiago.gestao_vagas.modules.canditates.useCases;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.thiago.gestao_vagas.exceptions.InvalidCredentialsException;
-import br.com.thiago.gestao_vagas.modules.canditates.CandidateRepository;
 import br.com.thiago.gestao_vagas.modules.canditates.dto.AuthCandidateRequestDTO;
 import br.com.thiago.gestao_vagas.modules.canditates.dto.AuthCandidateResponseDTO;
+import br.com.thiago.gestao_vagas.modules.canditates.repositories.CandidateRepository;
 import br.com.thiago.gestao_vagas.providers.JWTCandidateProvider;
 
 @Service
@@ -37,7 +38,7 @@ public class AuthCandidateUseCase {
       throw new InvalidCredentialsException();
     }
 
-    Instant expiresIn = Instant.now().plus(Duration.ofMinutes(10));
+    Instant expiresIn = Instant.now().plus(Duration.ofMinutes(10)).truncatedTo(ChronoUnit.SECONDS);
 
     var token = this.jwtProvider.createTokenWithClains(candidate.getId().toString(), Arrays.asList("CANDIDATE"),
         expiresIn);

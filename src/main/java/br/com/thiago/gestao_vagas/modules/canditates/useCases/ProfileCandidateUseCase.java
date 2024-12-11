@@ -5,8 +5,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.thiago.gestao_vagas.modules.canditates.CandidateRepository;
 import br.com.thiago.gestao_vagas.modules.canditates.dto.ProfileCandidateResponseDTO;
+import br.com.thiago.gestao_vagas.modules.canditates.repositories.CandidateRepository;
 import br.com.thiago.gestao_vagas.modules.canditates.useCases.exceptions.CandidateDoesNotExists;
 
 @Service

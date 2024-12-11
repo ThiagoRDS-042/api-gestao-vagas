@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.com.thiago.gestao_vagas.modules.canditates.CandidateEntity;
-import br.com.thiago.gestao_vagas.modules.canditates.CandidateRepository;
+import br.com.thiago.gestao_vagas.modules.canditates.entities.CandidateEntity;
+import br.com.thiago.gestao_vagas.modules.canditates.repositories.CandidateRepository;
 import br.com.thiago.gestao_vagas.modules.canditates.useCases.exceptions.CandidateAlreadyExistsException;
 
 @Service
